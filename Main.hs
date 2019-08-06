@@ -22,7 +22,19 @@ solveBlock b = do
   return $ setNounce nounce b
 
 main = do
-  let blockchain = take 10 $ iterate ((>>= solveBlock) . (>>= newBlock)) (pure genesis)
+  putStrLn "------------------------------------------------------------------------------------"
+  putStrLn "                                 _                   _      _            "
+  putStrLn "   ||_  _ __ _  _ _ _ ___ __ ___(_)_ _    ___   __ _| |_ __| |_  __ _ ||_"
+  putStrLn "  (_-< | '_ \\ || | '_/ -_) _/ _ \\ | ' \\  |___| / _` | | '_ \\ ' \\/ _` (_-<"
+  putStrLn "  / _/ | .__/\\_,_|_| \\___\\__\\___/_|_||_|       \\__,_|_| .__/_||_\\__,_/ _/"
+  putStrLn "   ||  |_|                                            |_|             || "
+  putStrLn "------------------------------------------------------------------------------------"
+  putStrLn ""
+  putStrLn " the purest crypto currency you will find in  "
+  putStrLn " this sick, mutable world."
+  putStrLn ""
+  putStrLn " So yeah, this program will just mine blocks for eternity."
+  putStrLn " I am planning to mimic bitcoin as close as it is in the near future."
 
-  -- print the blockchain
-  mapM (>>= print) blockchain
+  -- mine block for eternity
+  mapM (>>= print) . iterate ((>>= solveBlock) . (>>= newBlock)) $ (pure genesis)
