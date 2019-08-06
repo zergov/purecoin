@@ -6,7 +6,9 @@ module Purecoin.Block
 , blockHash
 ) where
 
-import qualified Data.ByteString
+import Data.Binary (encode)
+import qualified Data.ByteString as BS
+import Data.ByteString.Lazy (toStrict)
 import qualified Data.ByteString.Base16 as B16
 import qualified Crypto.Hash.SHA256 as SHA256
 
@@ -31,13 +33,18 @@ createBlock t prev = Block
   , bDifficulty=4}
 
 blockHash :: Block -> String
-blockHash b = show . B16.encode $ hash
-  where hash = SHA256.hash (Data.ByteString.pack [0..255])
+blockHash b = show . B16.encode . SHA256.hash $ header
+  where header = BS.concat . map toStrict $ [previous, timestamp, nounce, difficulty]
+        previous = encode $ bPreviousHash b
+        timestamp = encode $ bTimestamp b
+        nounce = encode $ bNounce b
+        difficulty = encode $ bDifficulty b
 
 instance Show Block where
   show b = unlines
     [
       "=========================================="
+    , "hash: \t\t" ++ blockHash b
     , "previous hash: \t" ++ bPreviousHash b
     , "timestamp: \t" ++ show (bTimestamp b)
     , "nounce: \t" ++ show (bNounce b)
