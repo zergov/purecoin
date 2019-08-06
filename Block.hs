@@ -1,4 +1,4 @@
-module Purecoin.Block
+module Block
 ( Block
 , genesis
 , previousHash
