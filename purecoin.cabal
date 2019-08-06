@@ -77,7 +77,8 @@ executable purecoin
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.11 && <4.12
+  build-depends:       base >=4.11 && <4.12, cryptohash-sha256, time, bytestring, base16-bytestring
+
 
   -- Directories containing source files.
   -- hs-source-dirs:

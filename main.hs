@@ -5,11 +5,10 @@ getTime :: IO Integer
 getTime = round `fmap` getPOSIXTime
 
 main = do
-  time <- getTime
-
-  let genesis' = genesis
+  -- genesis block
   putStrLn $ show genesis
 
-  let previous = "TODO: compute hash from genesis"
-  let block = createBlock time previous
+  -- second block
+  time <- getTime
+  let block = createBlock time (blockHash genesis)
   putStrLn $ show block
