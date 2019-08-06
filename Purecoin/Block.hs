@@ -1,9 +1,9 @@
 module Purecoin.Block
 ( Block
 , genesis
-, bPreviousHash
 , createBlock
 , blockHash
+, bPreviousHash
 ) where
 
 import Data.Binary (encode)

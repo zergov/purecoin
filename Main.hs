@@ -1,14 +1,16 @@
 import Data.Time.Clock.POSIX
 import Purecoin.Block
 
-getTime :: IO Integer
-getTime = round `fmap` getPOSIXTime
+currentTime :: IO Integer
+currentTime = round <$> getPOSIXTime
+
+newBlock :: Block -> IO Block
+newBlock previous = do
+  time <- currentTime
+  return $ createBlock time (blockHash previous)
 
 main = do
-  -- genesis block
-  print genesis
+  let blockchain = take 10 $ iterate (>>= newBlock) (pure genesis)
 
-  -- second block
-  time <- getTime
-  let block = createBlock time (blockHash genesis)
-  print block
+  -- print the blockchain
+  mapM (>>= print) blockchain
