@@ -1,7 +1,7 @@
 module Purecoin.Block
 ( Block
 , genesis
-, previousHash
+, bPreviousHash
 , createBlock
 , blockHash
 ) where
@@ -11,32 +11,32 @@ import qualified Data.ByteString.Base16 as B16
 import qualified Crypto.Hash.SHA256 as SHA256
 
 data Block = Block
-  { previousHash :: String
-  , timestamp :: Integer
-  , nounce :: Integer }
+  { bPreviousHash :: String
+  , bTimestamp :: Integer
+  , bNounce :: Integer }
 
 genesis :: Block
 genesis = Block
-  { previousHash="0000000000000000000000000000000000000000000000000000000000000000"
-  , timestamp=1565062105
-  , nounce=0 }
+  { bPreviousHash="0000000000000000000000000000000000000000000000000000000000000000"
+  , bTimestamp=1565062105
+  , bNounce=0 }
 
 createBlock :: Integer -> String -> Block
 createBlock t prev = Block
-  { previousHash=prev
-  , timestamp=t
-  , nounce=0 }
+  { bPreviousHash=prev
+  , bTimestamp=t
+  , bNounce=0 }
 
 blockHash :: Block -> String
 blockHash b = show . B16.encode $ hash
   where hash = SHA256.hash (Data.ByteString.pack [0..255])
 
 instance Show Block where
-  show b = concat . map (++ "\n") $
+  show b = unlines
     [
       "=========================================="
-    , "previous hash: \t" ++ previousHash b
-    , "timestamp: \t" ++ (show $ timestamp b)
-    , "nounce: \t" ++ (show $ nounce b)
+    , "previous hash: \t" ++ bPreviousHash b
+    , "timestamp: \t" ++ show (bTimestamp b)
+    , "nounce: \t" ++ show (bNounce b)
     , "=========================================="
     ]
