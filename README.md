@@ -1,5 +1,5 @@
 # Purecoin
-the purest crypto currency you will find in this sick, mutable world.
+The purest crypto currency you will find in this sick, mutable world.
 
 ## What is Purecoin
 It's just a fun little project I started. I want to re-implement bitcoin, in haskell.
