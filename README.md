@@ -19,3 +19,21 @@ I will eventually add more goals under each categories.
 - [ ] client
 - [ ] wallet
 - [ ] local transaction persistence
+
+# How to start mining useless blocks
+You will need haskell and cabal installed.
+
+1. Clone the repo
+2. Create a cabal sandbox
+```
+$ cabal sandbox init
+```
+3. Install dependencies
+```
+$ cabal install
+```
+4. Run the program
+```
+$ cabal run
+```
+![](doc/purecoin.png)
