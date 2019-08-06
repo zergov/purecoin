@@ -4,13 +4,16 @@ module Purecoin.Block
 , createBlock
 , blockHash
 , bPreviousHash
+, bDifficulty
+, setNounce
 ) where
 
-import Data.Binary (encode)
+import Data.Binary (encode, decode)
 import qualified Data.ByteString as BS
 import Data.ByteString.Lazy (toStrict)
 import qualified Data.ByteString.Base16 as B16
 import qualified Crypto.Hash.SHA256 as SHA256
+import Data.Char (chr)
 
 data Block = Block
   { bPreviousHash :: String
@@ -33,12 +36,16 @@ createBlock t prev = Block
   , bDifficulty=4}
 
 blockHash :: Block -> String
-blockHash b = show . B16.encode . SHA256.hash $ header
+blockHash b =  bsToStr . BS.unpack . B16.encode . SHA256.hash $ header
   where header = BS.concat . map toStrict $ [previous, timestamp, nounce, difficulty]
         previous = encode $ bPreviousHash b
         timestamp = encode $ bTimestamp b
         nounce = encode $ bNounce b
         difficulty = encode $ bDifficulty b
+        bsToStr = map (chr . fromEnum)
+
+setNounce :: Integer -> Block -> Block
+setNounce n b = b { bNounce=n }
 
 instance Show Block where
   show b = unlines
