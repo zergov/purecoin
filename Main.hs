@@ -10,16 +10,16 @@ newBlock previous = do
   time <- currentTime
   return $ createBlock time (blockHash previous)
 
+solveBlock :: Block -> IO Block
+solveBlock b = do
+  let nounce = proof b
+  return $ setNounce nounce b
+
 proof :: Block -> Integer
 proof b = head $ dropWhile predicate [0..]
   where calculatedHash n = blockHash $ setNounce n b
         target = replicate (fromIntegral $ bDifficulty b) '0'
         predicate = not . isPrefixOf target . calculatedHash
-
-solveBlock :: Block -> IO Block
-solveBlock b = do
-  let nounce = proof b
-  return $ setNounce nounce b
 
 main = do
   putStrLn "------------------------------------------------------------------------------------"
@@ -38,3 +38,4 @@ main = do
 
   -- mine block for eternity
   mapM (>>= print) . iterate ((>>= solveBlock) . (>>= newBlock)) $ (pure genesis)
+
