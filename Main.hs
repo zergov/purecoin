@@ -1,5 +1,5 @@
 import Data.Time.Clock.POSIX
-import Block
+import Purecoin.Block
 
 getTime :: IO Integer
 getTime = round `fmap` getPOSIXTime
