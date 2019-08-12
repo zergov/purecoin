@@ -2,7 +2,7 @@
 The purest crypto currency you will find in this sick, mutable world.
 
 ## What is Purecoin
-It's just a fun little project I started. I want to re-implement bitcoin, in haskell.
+It's just a fun little project I started. I want to re-implement bitcoin in a pure language.
 
 ## Why?
 I recently finished a class about distributed systems and I got hooked on the bitcion consensus
